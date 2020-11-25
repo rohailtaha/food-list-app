@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Food Order</title>
+</head>
+<body>
+    <div class="container">
+        <div class="div-update">
+            <fieldset> 
+                <legend>Update Items</legend>
+                    <div class="input-wrapper">
+                        <label for="name-field" class="name-label"> Item Name: </label>
+                        <input type="text" id="name-field">
+                        <label for="price-field" class="price-label"> Item Price(RS): </label>
+                        <input type="number" id="price-field">
+                        <button class="add-btn">Add</button>
+                        <p class="msg add-msg">Please fill the above fields before adding.</p>
+                        <label for="remove-field" class="remove-label"> Remove Item: </label>
+                        <input type="text" id="remove-field" list="current-items">
+                        <button class="remove-btn">Remove</button>
+                        <p class="msg remove-msg">Please fill the above field before adding.</p>
+                        <datalist id="current-items"> </datalist>
+                    </div>
+            </fieldset>
+        </div>
+
+        <ul class="list">
+            <li class="list-item"><span class="item-name">Pizza</span> <span class="item-price">Rs 760</span></li>
+            <li class="list-item"><span class="item-name">Burger</span> <span class="item-price">Rs 450</span></li>
+            <li class="list-item"><span class="item-name">Shwarma</span> <span class="item-price">Rs 260</span></li>
+            <li class="list-item"><span class="item-name">Pasta</span> <span class="item-price">Rs 160</span></li>
+        </ul>
+    </div>
+    <script src="main.js"></script>
+</body>
+</html>

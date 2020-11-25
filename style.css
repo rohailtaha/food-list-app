@@ -1,0 +1,147 @@
+*,*::after,*::before {
+    box-sizing:border-box;
+    margin:0; padding:0;
+}
+
+:root {
+    font-size:10px;
+}
+
+body {
+    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    background-image: url('images/background-body.jpg');
+    background-size: cover;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    color: white;
+    font-size: 2rem;
+    min-height: 100vh;
+}
+
+ul {list-style: none;}
+
+button {
+    background-color: rgba(255, 145, 1, 0.89);
+    padding: 0.5em 1em;
+    border-radius: 3px;
+    max-width: 117px;
+}
+
+input {
+    height: 25px;
+    max-width: 300px;
+}
+
+.container {
+    width: 80%;
+    margin: 3em auto 0 auto;
+    max-width: 800px;
+    display: grid;
+}
+
+legend {
+    font-size: 3rem;
+}
+
+.input-wrapper {
+    padding:1em;
+    display:grid;
+    justify-content: start;
+    align-items: end;
+    grid-gap: 0.8em 1em;
+    grid-template-columns: max-content 150px max-content 150px;
+    grid-template-areas: 
+    "name-label   name-field    price-label     price-field"
+    "add-btn      add-msg       ...........     ..........."
+    "remove-label remove-field  ...........     ..........."
+    "remove-btn   remove-msg    ...........     ...........";
+}
+
+.name-label {
+    grid-area: name-label;
+}
+#name-field {
+    grid-area: name-field;
+}
+.price-label {
+    grid-area: price-label;
+}
+#price-field {
+    grid-area: price-field;
+}
+.add-btn {
+    grid-area: add-btn;
+}
+.remove-label {
+    grid-area: remove-label;
+}
+#remove-field {
+    grid-area: remove-field;
+}
+.remove-btn {
+    grid-area: remove-btn;
+}
+.add-msg {
+    grid-area: add-msg;
+}
+.remove-msg {
+    grid-area: remove-msg;
+}
+
+.add-msg, .remove-msg {
+    color: orangered;
+    font-size:1.4rem;
+    display: none;
+}
+
+.list {
+    margin-top: 2em;
+}
+
+.list-item {
+    display: grid;
+    grid-auto-flow: column;
+    justify-content: space-between;
+    padding:0.5em 1em;
+    background-color: rgba(228, 84, 31, 0.856);
+    margin-top: 0.5em;
+}
+
+@media (max-width:745px) {
+
+body { font-size: 1.8rem;}
+
+.container {width: 90%;}
+
+.input-wrapper {
+    align-items: center;
+    grid-template-columns: max-content minmax(100px,1fr) ;
+    grid-template-areas: 
+    "name-label      name-field"
+    "price-label     price-field"
+    "add-btn         add-msg"
+    "remove-label    remove-field"
+    "remove-btn      remove-msg ";
+}
+
+}
+
+@media (max-width:320px) {
+
+.input-wrapper {
+    align-items: center;
+    grid-template-columns: 1fr;
+    grid-template-areas: 
+    "name-label"  
+    "name-field"
+    "price-label"  
+    "price-field"
+    "add-btn"     
+    "add-msg"
+    "remove-label" 
+    "remove-field"
+    "remove-btn"    
+    "remove-msg ";
+}
+
+}
