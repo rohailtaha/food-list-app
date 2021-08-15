@@ -1,39 +1,65 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Raleway:wght@200;300;400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
     <title>Food Order</title>
-</head>
-<body>
+  </head>
+  <body>
     <div class="container">
-        <div class="div-update">
-            <fieldset> 
-                <legend>Update Items</legend>
-                    <div class="input-wrapper">
-                        <label for="name-field" class="name-label"> Item Name: </label>
-                        <input type="text" id="name-field">
-                        <label for="price-field" class="price-label"> Item Price(RS): </label>
-                        <input type="number" id="price-field">
-                        <button class="add-btn">Add</button>
-                        <p class="msg add-msg">Please fill the above fields before adding.</p>
-                        <label for="remove-field" class="remove-label"> Remove Item: </label>
-                        <input type="text" id="remove-field" list="current-items">
-                        <button class="remove-btn">Remove</button>
-                        <p class="msg remove-msg">Please fill the above field before adding.</p>
-                        <datalist id="current-items"> </datalist>
-                    </div>
-            </fieldset>
-        </div>
+      <div class="div-update">
+        <fieldset>
+          <legend>Update Food Items</legend>
+          <div class="input-wrapper">
+            <label for="name-field" class="name-label"> Name: </label>
+            <input type="text" id="name-field" />
+            <label for="price-field" class="price-label">
+              Price (RS):
+            </label>
+            <input type="number" id="price-field" min="1" />
+            <button class="add-btn">Add</button>
+            <p class="msg add-msg">
+              Fill the above fields correctly before adding.
+            </p>
+            <label for="remove-field" class="remove-label">
+              Remove Item:
+            </label>
+            <input type="text" id="remove-field" list="current-items" />
+            <button class="remove-btn">Remove</button>
+            <p class="msg remove-msg">
+              Please select an item to remove.
+            </p>
+            <datalist id="current-items"> </datalist>
+          </div>
+        </fieldset>
+      </div>
 
-        <ul class="list">
-            <li class="list-item"><span class="item-name">Pizza</span> <span class="item-price">Rs 760</span></li>
-            <li class="list-item"><span class="item-name">Burger</span> <span class="item-price">Rs 450</span></li>
-            <li class="list-item"><span class="item-name">Shwarma</span> <span class="item-price">Rs 260</span></li>
-            <li class="list-item"><span class="item-name">Pasta</span> <span class="item-price">Rs 160</span></li>
-        </ul>
+      <ul class="list">
+        <!-- <li class="list-item">
+          <span class="item-name">Pizza</span>
+          <span class="item-price">Rs 760</span>
+        </li>
+        <li class="list-item">
+          <span class="item-name">Burger</span>
+          <span class="item-price">Rs 450</span>
+        </li>
+        <li class="list-item">
+          <span class="item-name">Shwarma</span>
+          <span class="item-price">Rs 260</span>
+        </li>
+        <li class="list-item">
+          <span class="item-name">Pasta</span>
+          <span class="item-price">Rs 160</span>
+        </li> -->
+      </ul>
     </div>
     <script src="main.js"></script>
-</body>
+  </body>
 </html>

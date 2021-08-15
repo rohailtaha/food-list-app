@@ -1,74 +1,90 @@
-const nameField = document.querySelector('#name-field');
-const priceField = document.querySelector('#price-field');
-const removeField = document.querySelector('#remove-field');
-const addBtn = document.querySelector('.add-btn');
-const removeBtn = document.querySelector('.remove-btn');
-const addMsg = document.querySelector('.add-msg');
-const removeMsg = document.querySelector('.remove-msg');
-const datalist = document.querySelector('#current-items');
 const itemNames = document.querySelectorAll('.item-name');
 
-const fillDefaultDataList = function() {
- 
-    itemNames.forEach((itemName)=> {
-        const option = document.createElement('option');
-        option.appendChild(document.createTextNode(itemName.textContent));
-        datalist.appendChild(option);
-    });
-}();
+const nameField = () => document.querySelector('#name-field');
+const priceField = () => document.querySelector('#price-field');
+const removeField = () => document.querySelector('#remove-field');
 
-const addToDataList = function(span_name) {
-    const option = document.createElement('option');
-    option.appendChild(document.createTextNode(span_name.textContent));
-    datalist.appendChild(option);
-}
+const addItemToDataList = function (element) {
+  const option = document.createElement('option');
+  option.appendChild(document.createTextNode(element.textContent));
+  document.querySelector('#current-items').appendChild(option);
+};
 
-const removeFromDataList = function(itemName) {
-    const options = document.querySelectorAll('datalist > *');
-    const toRemove = Array.from(options).find((option)=> option.textContent === itemName.textContent); 
-    toRemove.remove();
-}
+const removeFromDataList = function (itemName) {
+  const options = document.querySelectorAll('datalist > *');
+  const toRemove = Array.from(options).find(
+    option => option.textContent === itemName.textContent
+  );
+  toRemove.remove();
+};
 
-const addValidate = function(e) {
-    if(Array.from(nameField.value).length === 0 ||
-       Array.from(priceField.value).length === 0 ) {
-           addMsg.style.display = 'block';
-       }
-    else {
-        const list = document.querySelector('.list');
-        const li = document.createElement('li');
-        const span_name = document.createElement('span')
-        const span_price = document.createElement('span')
-        span_name.appendChild(document.createTextNode(nameField.value));
-        span_price.appendChild(document.createTextNode(`RS ${priceField.value}`));
-        span_name.classList.add('item-name');
-        span_price.classList.add('item-price');
-        li.appendChild(span_name);
-        li.appendChild(span_price);
-        li.classList.add('list-item');
-        list.appendChild(li);
-        addToDataList(span_name);
+const handleAdd = () => {
+  if (nameField().value === '' || priceField().value <= 0) {
+    addMsg.style.display = 'block';
+  } else {
+    saveItem();
+    renderItem(nameField().value, priceField().value);
+  }
+};
+
+const saveItem = () => {
+  const items = savedItems();
+  items.push({ name: nameField().value, price: priceField().value });
+  localStorage.setItem('items', JSON.stringify(items));
+};
+
+const renderItem = (name, price) => {
+  const list = document.querySelector('.list');
+  const li = document.createElement('li');
+  const span_name = document.createElement('span');
+  const span_price = document.createElement('span');
+  span_name.appendChild(document.createTextNode(name));
+  span_price.appendChild(document.createTextNode(`RS ${price}`));
+  span_name.classList.add('item-name');
+  span_price.classList.add('item-price');
+  li.appendChild(span_name);
+  li.appendChild(span_price);
+  li.classList.add('list-item');
+  list.appendChild(li);
+  addItemToDataList(span_name);
+};
+
+const savedItems = () => JSON.parse(localStorage.getItem('items')) || [];
+
+const loadSavedItems = () => {
+  savedItems().forEach(item => renderItem(item.name, item.price));
+};
+loadSavedItems();
+
+const handleRemove = () => {
+  if (removeField().value === '') {
+    removeMsg.style.display = 'block';
+  } else {
+    const itemName = Array.from(document.querySelectorAll('.item-name')).find(
+      itemName => itemName.textContent === removeField().value
+    );
+    if (itemName) {
+      removeFromDataList(itemName);
+      itemName.parentElement.remove();
     }
-}
+  }
+};
 
-const removeValidate = function(e) {
-    if(Array.from(removeField.value).length === 0) {
-           removeMsg.style.display = 'block';
-       } 
-    else {
-        const itemNames = document.querySelectorAll('.item-name');
-        const itemName = Array.from(itemNames).find((itemName)=> itemName.textContent === removeField.value);
-        removeFromDataList(itemName);
-        itemName.parentElement.remove();
-    }
-} 
+document.querySelector('.add-btn').addEventListener('click', handleAdd);
 
-addBtn.addEventListener('click', addValidate);
-removeBtn.addEventListener('click', removeValidate);
-nameField.addEventListener('focus', () => addMsg.style.display = 'none');
-priceField.addEventListener('focus', () => addMsg.style.display = 'none');
-removeField.addEventListener('focus', () => removeMsg.style.display = 'none');
+document.querySelector('.remove-btn').addEventListener('click', handleRemove);
 
+const addMsg = document.querySelector('.add-msg');
+const removeMsg = document.querySelector('.remove-msg');
 
+document
+  .querySelector('#name-field')
+  .addEventListener('focus', () => (addMsg.style.display = 'none'));
 
+document
+  .querySelector('#price-field')
+  .addEventListener('focus', () => (addMsg.style.display = 'none'));
 
+document
+  .querySelector('#remove-field')
+  .addEventListener('focus', () => (removeMsg.style.display = 'none'));
