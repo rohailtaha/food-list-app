@@ -107,6 +107,7 @@ legend {
 }
 .add-msg {
   grid-area: add-msg;
+  margin-bottom: 2.5em;
 }
 .remove-msg {
   grid-area: remove-msg;
@@ -135,6 +136,11 @@ legend {
 
 .list-item + .list-item {
   margin-top: 0.8em;
+}
+
+.list-item .item-price {
+  font-size: 1.8rem;
+  font-weight: 700;
 }
 
 @media (max-width: 900px) {

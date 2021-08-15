@@ -10,26 +10,29 @@ const addItemToDataList = function (element) {
   document.querySelector('#current-items').appendChild(option);
 };
 
-const removeFromDataList = function (itemName) {
-  const options = document.querySelectorAll('datalist > *');
-  const toRemove = Array.from(options).find(
-    option => option.textContent === itemName.textContent
-  );
-  toRemove.remove();
-};
+const removeItemFromDataList = itemName =>
+  Array.from(document.querySelectorAll('datalist > *'))
+    .find(option => option.textContent === itemName)
+    .remove();
 
 const handleAdd = () => {
-  if (nameField().value === '' || priceField().value <= 0) {
+  if (
+    nameField().value === '' ||
+    priceField().value <= 0 ||
+    priceField().value > 100000000
+  ) {
     addMsg.style.display = 'block';
   } else {
-    saveItem();
+    saveItem(nameField().value, priceField().value);
     renderItem(nameField().value, priceField().value);
+    nameField().value = '';
+    priceField().value = '';
   }
 };
 
-const saveItem = () => {
+const saveItem = (name, price) => {
   const items = savedItems();
-  items.push({ name: nameField().value, price: priceField().value });
+  items.push({ name, price });
   localStorage.setItem('items', JSON.stringify(items));
 };
 
@@ -45,7 +48,7 @@ const renderItem = (name, price) => {
   li.appendChild(span_name);
   li.appendChild(span_price);
   li.classList.add('list-item');
-  list.appendChild(li);
+  list.prepend(li);
   addItemToDataList(span_name);
 };
 
@@ -60,14 +63,21 @@ const handleRemove = () => {
   if (removeField().value === '') {
     removeMsg.style.display = 'block';
   } else {
-    const itemName = Array.from(document.querySelectorAll('.item-name')).find(
-      itemName => itemName.textContent === removeField().value
-    );
-    if (itemName) {
-      removeFromDataList(itemName);
-      itemName.parentElement.remove();
+    const itemNameElement = Array.from(
+      document.querySelectorAll('.item-name')
+    ).find(itemName => itemName.textContent === removeField().value);
+    if (itemNameElement) {
+      removeSavedItem(itemNameElement.textContent);
+      removeItemFromDataList(itemNameElement.textContent);
+      itemNameElement.parentElement.remove();
+      removeField().value = '';
     }
   }
+};
+
+const removeSavedItem = itemName => {
+  const items = savedItems().filter(item => item.name != itemName);
+  localStorage.setItem('items', JSON.stringify(items));
 };
 
 document.querySelector('.add-btn').addEventListener('click', handleAdd);
